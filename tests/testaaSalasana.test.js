@@ -1,35 +1,27 @@
-import { tarkistaSalasana } from '../TestaaSalasanaPieni.js';
-import { describe, it } from 'node:test';
-import assert from 'node:assert/strict';
+const { tarkistaSalasana } = require( '../TestaaSalasanaPieni');
 
 describe('tarkistaSalasana', () => {
-    it('palauttaa true, kun salasana täyttää kaikki vaatimukset', () => {
-        const tulos = tarkistaSalasana('Valid123!@');
-        assert.strictEqual(tulos, true);
-    });
+  it('hyväksyy kelvollisen salasanan', () => {
+    expect(tarkistaSalasana('Valid123!@')).toBe(true);
+  });
 
-    it('palauttaa false, kun salasana on liian lyhyt', () => {
-        const tulos = tarkistaSalasana('Val1!');
-        assert.strictEqual(tulos, false);
-    });
+  it('hylkää liian lyhyen salasanan', () => {
+    expect(tarkistaSalasana('Val1!')).toBe(false);
+  });
 
-    it('palauttaa false, kun iso kirjain puuttuu', () => {
-        const tulos = tarkistaSalasana('valid123!@');
-        assert.strictEqual(tulos, false);
-    });
+  it('hylkää salasanan ilman isoa kirjainta', () => {
+    expect(tarkistaSalasana('valid123!@')).toBe(false);
+  });
 
-    it('palauttaa false, kun pieni kirjain puuttuu', () => {
-        const tulos = tarkistaSalasana('VALID123!@');
-        assert.strictEqual(tulos, false);
-    });
+  it('hylkää salasanan ilman pientä kirjainta', () => {
+    expect(tarkistaSalasana('VALID123!@')).toBe(false);
+  });
 
-    it('palauttaa false, kun numero puuttuu', () => {
-        const tulos = tarkistaSalasana('ValidPassword!');
-        assert.strictEqual(tulos, false);
-    });
+  it('hylkää salasanan ilman numeroa', () => {
+    expect(tarkistaSalasana('ValidPassword!')).toBe(false);
+  });
 
-    it('palauttaa false, kun erikoismerkki puuttuu', () => {
-        const tulos = tarkistaSalasana('Valid12345');
-        assert.strictEqual(tulos, false);
-    });
+  it('hylkää salasanan ilman erikoismerkkiä', () => {
+    expect(tarkistaSalasana('Valid12345')).toBe(false);
+  });
 });
